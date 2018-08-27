@@ -4,18 +4,18 @@ import { setTextFilter } from '../actions/filters';
 import { sortByDate } from '../actions/filters';
 import { sortByAmount } from '../actions/filters';
 
-const ExpenseListFilters = (props) => (
+const ExpenseListFilters = ({ filters, dispatch }) => (
     <div>
-        <input type="text" value={props.filters.text} onChange={(e) => {
-            props.dispatch(setTextFilter(e.target.value));
+        <input type="text" value={filters.text} onChange={(e) => {
+            dispatch(setTextFilter(e.target.value));
         }}/>
         <select 
-            value={props.filters.sortBy}
+            value={filters.sortBy}
             onChange={(e) => {
                 if (e.target.value === 'date') {
-                    props.dispatch(sortByDate());
+                    dispatch(sortByDate());
                 } else if (e.target.value === 'amount') {
-                    props.dispatch(sortByAmount());
+                    dispatch(sortByAmount());
                 }
             }}
         >
@@ -25,9 +25,9 @@ const ExpenseListFilters = (props) => (
     </div>
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ filters }) => {
     return {
-        filters: state.filters
+        filters
     };
 }
 
